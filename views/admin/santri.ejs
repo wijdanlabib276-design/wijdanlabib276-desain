@@ -1,0 +1,63 @@
+<%#
+  ============================================================
+  (c) 2026 PPSZ NW Pasangkayu. All Rights Reserved.
+  Dilarang menyalin, mengubah, atau mendistribusikan tanpa izin.
+  ============================================================
+%>
+<%- include('../partials/admin-header', { pageTitle: 'Data Santri' }) %>
+
+  <div class="flex-between">
+    <h1>Data Santri</h1>
+    <a href="/admin/santri/tambah" class="btn btn-primary">+ Tambah Santri</a>
+  </div>
+
+  <% if (message) { %>
+    <div class="alert alert-success"><%= message %></div>
+  <% } %>
+
+  <div class="card">
+    <form method="GET" action="/admin/santri" class="form-inline">
+      <input type="text" name="q" value="<%= q %>" placeholder="Cari nama / kelas / asrama..." style="flex:1;min-width:200px" />
+      <button type="submit" class="btn btn-outline btn-sm">Cari</button>
+    </form>
+  </div>
+
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Kelas</th>
+          <th>Asrama</th>
+          <th>Orang Tua</th>
+          <th>Kontak</th>
+          <th>Kode Akses</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (santri.length === 0) { %>
+          <tr><td colspan="8" class="text-center muted">Belum ada data santri.</td></tr>
+        <% } %>
+        <% santri.forEach(function(s, i) { %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><strong><%= s.nama %></strong></td>
+            <td><%= s.kelas || '-' %></td>
+            <td><%= s.asrama || '-' %></td>
+            <td><%= s.nama_ortu || '-' %></td>
+            <td><%= s.kontak_ortu || '-' %></td>
+            <td><code><%= s.kode_akses %></code></td>
+            <td>
+              <a href="/admin/santri/<%= s.id %>/transaksi" class="btn btn-sm btn-success">Transaksi</a>
+              <a href="/admin/santri/<%= s.id %>/edit" class="btn btn-sm btn-outline">Edit</a>
+              <a href="/admin/santri/<%= s.id %>/hapus" class="btn btn-sm btn-danger" data-confirm="Hapus santri <%= s.nama %> beserta semua transaksinya?">Hapus</a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+<%- include('../partials/footer') %>

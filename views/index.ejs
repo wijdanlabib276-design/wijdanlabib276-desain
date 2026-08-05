@@ -1,0 +1,151 @@
+<%#
+  ============================================================
+  (c) 2026 PPSZ NW Pasangkayu. All Rights Reserved.
+  Dilarang menyalin, mengubah, atau mendistribusikan tanpa izin.
+  ============================================================
+%><!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keuangan Santri — PPSZ NW Pasangkayu</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="/" class="brand">🏫 Keuangan Santri PPSZ NW Pasangkayu</a>
+      <div class="nav-links">
+        <a href="#tentang">Tentang</a>
+        <a href="#fitur">Fitur</a>
+        <a href="#statistik">Statistik</a>
+        <a href="/admin/login" class="btn btn-accent btn-sm">Login Admin</a>
+        <a href="/ortu/login" class="btn btn-outline btn-sm">Login Orang Tua</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="hero-grid">
+        <div class="hero-text">
+          <h1>Pondok Pesantren<br />Syaih Zainuddin NW <span>Pasangkayu</span></h1>
+          <p>Sistem Informasi Keuangan Santri — pantau transaksi uang masuk dan keluar santri secara transparan, aman, dan mudah diakses kapan saja.</p>
+          <div class="hero-actions">
+            <a href="/ortu/login" class="btn btn-accent btn-lg">🔑 Cek Saldo Santri</a>
+            <a href="#fitur" class="btn btn-outline btn-lg">Pelajari Fitur</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="/images/santri-hero.jpg" alt="Santri Pesantren PPSZ NW Pasangkayu" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== STATISTIK ===== -->
+  <section id="statistik" class="container section">
+    <h2 class="section-title">Statistik Keuangan</h2>
+    <p class="section-sub">Ringkasan keuangan santri Pondok Pesantren Syaih Zainuddin NW Pasangkayu</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-icon">👨‍🎓</div>
+        <div class="label">Santri Terdaftar</div>
+        <div class="value"><%= totalSantri %></div>
+      </div>
+      <div class="stat green">
+        <div class="stat-icon">💰</div>
+        <div class="label">Total Uang Masuk</div>
+        <div class="value"><%= formatRupiah(totalMasuk) %></div>
+      </div>
+      <div class="stat red">
+        <div class="stat-icon">📤</div>
+        <div class="label">Total Uang Keluar</div>
+        <div class="value"><%= formatRupiah(totalKeluar) %></div>
+      </div>
+      <div class="stat yellow">
+        <div class="stat-icon">📋</div>
+        <div class="label">Total Transaksi</div>
+        <div class="value"><%= totalTransaksi %></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TENTANG ===== -->
+  <section id="tentang" class="section about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image">
+          <img src="/images/santri-about.svg" alt="Santri belajar di pesantren" />
+        </div>
+        <div class="about-text">
+          <h2 class="section-title">Tentang Sistem Ini</h2>
+          <p>
+            Sistem Informasi Keuangan Santri adalah aplikasi digital untuk mencatat dan memantau
+            uang masuk/keluar setiap santri di Pondok Pesantren Syaih Zainuddin NW Pasangkayu.
+          </p>
+          <p>
+            Dengan sistem ini, pihak pondok dapat mengelola keuangan santri secara teratur,
+            sementara orang tua/wali dapat memantau saldo dan riwayat transaksi anak mereka
+            secara transparan dan real-time.
+          </p>
+          <ul class="about-list">
+            <li>✅ Transparan — setiap transaksi tercatat jelas</li>
+            <li>✅ Aman — data tersimpan rapi di database</li>
+            <li>✅ Mudah — diakses dari HP maupun komputer</li>
+            <li>✅ Real-time — saldo selalu terbarui</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FITUR ===== -->
+  <section id="fitur" class="section features">
+    <div class="container">
+      <h2 class="section-title">Fitur Unggulan</h2>
+      <p class="section-sub">Semua kebutuhan pencatatan keuangan santri dalam satu aplikasi</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-img">
+            <img src="/images/feature-dashboard.svg" alt="Dashboard Admin" />
+          </div>
+          <h3>📊 Dashboard Admin</h3>
+          <p>Kelola data santri, catat transaksi, dan lihat ringkasan keuangan secara menyeluruh.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-img">
+            <img src="/images/feature-ortu.svg" alt="Portal Orang Tua" />
+          </div>
+          <h3>👨‍👩‍👦 Portal Orang Tua</h3>
+          <p>Orang tua memantau saldo dan riwayat transaksi anak hanya dengan kode akses.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-img">
+            <img src="/images/feature-aman.svg" alt="Keamanan Data" />
+          </div>
+          <h3>🔒 Aman & Transparan</h3>
+          <p>Setiap transaksi tercatat lengkap dengan tanggal, kategori, dan keterangan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta">
+    <div class="container">
+      <h2>Orang Tua / Wali Santri?</h2>
+      <p>Masukkan kode akses yang diberikan oleh pihak pondok untuk melihat saldo dan riwayat transaksi putra/putri Anda.</p>
+      <a href="/ortu/login" class="btn btn-accent btn-lg">🔑 Cek Informasi Santri</a>
+    </div>
+  </section>
+
+  <div class="footer">
+    &copy; <%= new Date().getFullYear() %> PPSZ NW Pasangkayu — Sistem Informasi Keuangan Santri ,by wijdan labib
+  </div>
+</body>
+</html>

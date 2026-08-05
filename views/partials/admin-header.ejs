@@ -1,0 +1,27 @@
+<%#
+  ============================================================
+  (c) 2026 PPSZ NW Pasangkayu. All Rights Reserved.
+  Dilarang menyalin, mengubah, atau mendistribusikan tanpa izin.
+  ============================================================
+%><!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof pageTitle !== 'undefined' ? pageTitle : 'Admin' %> — Keuangan Santri PPSZ NW Pasangkayu</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="navbar">
+    <div class="container">
+      <a href="/admin/dashboard" class="brand">🏫 Admin Keuangan</a>
+      <nav>
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/admin/santri">Data Santri</a>
+        <a href="/admin/transaksi">Riwayat Transaksi</a>
+        <a href="/admin/ganti-password">Ganti Password</a>
+        <a href="/admin/logout">Logout</a>
+      </nav>
+    </div>
+  </div>
+  <div class="container">

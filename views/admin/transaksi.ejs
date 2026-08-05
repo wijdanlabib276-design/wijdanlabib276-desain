@@ -1,0 +1,83 @@
+<%#
+  ============================================================
+  (c) 2026 PPSZ NW Pasangkayu. All Rights Reserved.
+  Dilarang menyalin, mengubah, atau mendistribusikan tanpa izin.
+  ============================================================
+%>
+<%- include('../partials/admin-header', { pageTitle: 'Riwayat Transaksi' }) %>
+
+  <h1>Riwayat Transaksi</h1>
+
+  <% if (message) { %>
+    <div class="alert alert-success"><%= message %></div>
+  <% } %>
+
+  <div class="card">
+    <form method="GET" action="/admin/transaksi" class="form-inline">
+      <input type="date" name="dari" value="<%= dari %>" />
+      <span>s/d</span>
+      <input type="date" name="sampai" value="<%= sampai %>" />
+      <select name="jenis">
+        <option value="">Semua Jenis</option>
+        <option value="masuk" <%= jenis === 'masuk' ? 'selected' : '' %>>Uang Masuk</option>
+        <option value="keluar" <%= jenis === 'keluar' ? 'selected' : '' %>>Uang Keluar</option>
+      </select>
+      <button type="submit" class="btn btn-sm btn-outline">Filter</button>
+      <a href="/admin/transaksi" class="btn btn-sm btn-outline">Reset</a>
+    </form>
+  </div>
+
+  <div class="stats">
+    <div class="stat green">
+      <div class="label">Total Masuk (Filter)</div>
+      <div class="value"><%= formatRupiah(totalMasuk) %></div>
+    </div>
+    <div class="stat red">
+      <div class="label">Total Keluar (Filter)</div>
+      <div class="value"><%= formatRupiah(totalKeluar) %></div>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Santri</th>
+          <th>Jenis</th>
+          <th>Kategori</th>
+          <th>Keterangan</th>
+          <th>Jumlah</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (transaksi.length === 0) { %>
+          <tr><td colspan="7" class="text-center muted">Tidak ada transaksi yang cocok.</td></tr>
+        <% } %>
+        <% transaksi.forEach(function(t) { %>
+          <tr>
+            <td><%= t.tanggal %></td>
+            <td><%= t.nama_santri %></td>
+            <td>
+              <% if (t.jenis === 'masuk') { %>
+                <span class="badge badge-masuk">Masuk</span>
+              <% } else { %>
+                <span class="badge badge-keluar">Keluar</span>
+              <% } %>
+            </td>
+            <td><%= t.kategori || '-' %></td>
+            <td><%= t.keterangan || '-' %></td>
+            <td class="<%= t.jenis === 'masuk' ? 'amount-in' : 'amount-out' %>">
+              <%= (t.jenis === 'masuk' ? '+' : '-') %> <%= formatRupiah(t.jumlah) %>
+            </td>
+            <td>
+              <a href="/admin/transaksi/hapus/<%= t.id %>" class="btn btn-sm btn-danger" data-confirm="Hapus transaksi ini?">Hapus</a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+
+<%- include('../partials/footer') %>

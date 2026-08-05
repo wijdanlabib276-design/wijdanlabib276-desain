@@ -1,0 +1,16 @@
+node_modules/
+data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+.DS_Store
+npm-debug.log*
+
+# Sensitif — JANGAN pernah diunggah ke GitHub
+.env
+.env.local
+config.json
+*.secret
+logs/
+*.log

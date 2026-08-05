@@ -1,0 +1,95 @@
+<%#
+  ============================================================
+  (c) 2026 PPSZ NW Pasangkayu. All Rights Reserved.
+  Dilarang menyalin, mengubah, atau mendistribusikan tanpa izin.
+  ============================================================
+%>
+<%- include('../partials/admin-header', { pageTitle: 'Transaksi Santri' }) %>
+
+  <div class="flex-between">
+    <h1>Transaksi — <%= santri.nama %></h1>
+    <a href="/admin/santri" class="btn btn-sm btn-outline">← Data Santri</a>
+  </div>
+  <p class="muted">
+    Kelas: <%= santri.kelas || '-' %> | Asrama: <%= santri.asrama || '-' %> | Kode Akses: <code><%= santri.kode_akses %></code>
+  </p>
+
+  <% if (message) { %>
+    <div class="alert alert-success"><%= message %></div>
+  <% } %>
+
+  <div class="stats">
+    <div class="stat green">
+      <div class="label">Total Masuk</div>
+      <div class="value"><%= formatRupiah(totalMasuk) %></div>
+    </div>
+    <div class="stat red">
+      <div class="label">Total Keluar</div>
+      <div class="value"><%= formatRupiah(totalKeluar) %></div>
+    </div>
+    <div class="stat yellow">
+      <div class="label">Saldo</div>
+      <div class="value"><%= formatRupiah(saldo) %></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title">Tambah Transaksi</h2>
+    <form method="POST" action="/admin/santri/<%= santri.id %>/transaksi" class="form-inline">
+      <select name="jenis" required>
+        <option value="masuk">Uang Masuk</option>
+        <option value="keluar">Uang Keluar</option>
+      </select>
+      <input type="number" name="jumlah" placeholder="Jumlah (Rp)" min="1" required style="width:160px" />
+      <input type="text" name="kategori" placeholder="Kategori (mis. SPP, Jajan)" style="width:180px" />
+      <input type="text" name="keterangan" placeholder="Keterangan" style="width:220px" />
+      <input type="date" name="tanggal" value="<%= new Date().toISOString().slice(0,10) %>" />
+      <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title">Riwayat Transaksi</h2>
+    <% if (transaksi.length === 0) { %>
+      <p class="muted">Belum ada transaksi untuk santri ini.</p>
+    <% } else { %>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Jenis</th>
+              <th>Kategori</th>
+              <th>Keterangan</th>
+              <th>Jumlah</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% transaksi.forEach(function(t) { %>
+              <tr>
+                <td><%= t.tanggal %></td>
+                <td>
+                  <% if (t.jenis === 'masuk') { %>
+                    <span class="badge badge-masuk">Masuk</span>
+                  <% } else { %>
+                    <span class="badge badge-keluar">Keluar</span>
+                  <% } %>
+                </td>
+                <td><%= t.kategori || '-' %></td>
+                <td><%= t.keterangan || '-' %></td>
+                <td class="<%= t.jenis === 'masuk' ? 'amount-in' : 'amount-out' %>">
+                  <%= (t.jenis === 'masuk' ? '+' : '-') %> <%= formatRupiah(t.jumlah) %>
+                </td>
+                <td>
+                  <a href="/admin/transaksi/hapus/<%= t.id %>" class="btn btn-sm btn-danger" data-confirm="Hapus transaksi ini?">Hapus</a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+
+<%- include('../partials/footer') %>

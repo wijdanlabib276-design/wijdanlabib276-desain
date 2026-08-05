@@ -1,0 +1,38 @@
+<%#
+  ============================================================
+  (c) 2026 PPSZ NW Pasangkayu. All Rights Reserved.
+  Dilarang menyalin, mengubah, atau mendistribusikan tanpa izin.
+  ============================================================
+%><!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Orang Tua — Keuangan Santri PPSZ NW Pasangkayu</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-card">
+      <h1>👨‍👩‍👧 Login Orang Tua</h1>
+      <p class="sub">Masukkan kode akses yang diberikan oleh pondok</p>
+
+      <% if (error) { %>
+        <div class="alert alert-error"><%= error %></div>
+      <% } %>
+
+      <form method="POST" action="/ortu/login">
+        <div class="form-group">
+          <label for="kode_akses">Kode Akses Santri</label>
+          <input type="text" id="kode_akses" name="kode_akses" placeholder="Contoh: SPS-ABC123" required autofocus />
+        </div>
+        <button type="submit" class="btn btn-primary">Lihat Saldo</button>
+      </form>
+
+      <p class="text-center mt-2 muted">
+        <a href="/">← Kembali ke Beranda</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

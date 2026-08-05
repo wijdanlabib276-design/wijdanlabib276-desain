@@ -1,0 +1,75 @@
+<%#
+  ============================================================
+  (c) 2026 PPSZ NW Pasangkayu. All Rights Reserved.
+  Dilarang menyalin, mengubah, atau mendistribusikan tanpa izin.
+  ============================================================
+%>
+<%- include('../partials/admin-header', { pageTitle: 'Dashboard' }) %>
+
+  <h1>Dashboard</h1>
+  <p class="muted">Selamat datang, <%= adminNama %> 👋</p>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="label">Total Santri</div>
+      <div class="value"><%= totalSantri %></div>
+    </div>
+    <div class="stat green">
+      <div class="label">Total Uang Masuk</div>
+      <div class="value"><%= formatRupiah(totalMasuk) %></div>
+    </div>
+    <div class="stat red">
+      <div class="label">Total Uang Keluar</div>
+      <div class="value"><%= formatRupiah(totalKeluar) %></div>
+    </div>
+    <div class="stat yellow">
+      <div class="label">Saldo Keseluruhan</div>
+      <div class="value"><%= formatRupiah(saldo) %></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="flex-between">
+      <h2 class="card-title">Transaksi Terbaru</h2>
+      <a href="/admin/transaksi" class="btn btn-sm btn-outline">Lihat Semua</a>
+    </div>
+
+    <% if (transaksiTerbaru.length === 0) { %>
+      <p class="muted">Belum ada transaksi.</p>
+    <% } else { %>
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Santri</th>
+              <th>Jenis</th>
+              <th>Kategori</th>
+              <th>Jumlah</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% transaksiTerbaru.forEach(function(t) { %>
+              <tr>
+                <td><%= t.tanggal %></td>
+                <td><%= t.nama_santri %></td>
+                <td>
+                  <% if (t.jenis === 'masuk') { %>
+                    <span class="badge badge-masuk">Masuk</span>
+                  <% } else { %>
+                    <span class="badge badge-keluar">Keluar</span>
+                  <% } %>
+                </td>
+                <td><%= t.kategori || '-' %></td>
+                <td class="<%= t.jenis === 'masuk' ? 'amount-in' : 'amount-out' %>">
+                  <%= (t.jenis === 'masuk' ? '+' : '-') %> <%= formatRupiah(t.jumlah) %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+
+<%- include('../partials/footer') %>

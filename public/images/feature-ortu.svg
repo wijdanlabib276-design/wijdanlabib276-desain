@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="400" height="260">
+  <defs>
+    <linearGradient id="fo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4a826"/>
+      <stop offset="100%" stop-color="#d18f1a"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#fo)"/>
+
+  <!-- Family: parent + child -->
+  <!-- Parent -->
+  <g transform="translate(160,150)">
+    <circle cx="0" cy="-55" r="20" fill="#f5c9a0"/>
+    <rect x="-15" y="-35" width="30" height="50" rx="8" fill="#ffffff"/>
+    <rect x="-15" y="-35" width="30" height="12" rx="4" fill="#0e7a5f"/>
+    <circle cx="0" cy="-55" r="22" fill="#3a2a1a" opacity="0.9"/>
+  </g>
+  <!-- Child -->
+  <g transform="translate(225,160)">
+    <circle cx="0" cy="-45" r="16" fill="#f5c9a0"/>
+    <rect x="-12" y="-28" width="24" height="40" rx="7" fill="#ffffff"/>
+    <rect x="-12" y="-28" width="24" height="10" rx="4" fill="#0e7a5f"/>
+    <circle cx="0" cy="-45" r="18" fill="#1a1a2e" opacity="0.9"/>
+  </g>
+
+  <!-- Heart -->
+  <g transform="translate(200,135)">
+    <path d="M0,10 C-15,-5 -25,-18 -10,-25 C-5,-27 0,-22 0,-18 C0,-22 5,-27 10,-25 C25,-18 15,-5 0,10 Z" fill="#e74c3c"/>
+  </g>
+
+  <!-- Phone -->
+  <rect x="280" y="60" width="50" height="90" rx="8" fill="#ffffff"/>
+  <rect x="285" y="68" width="40" height="60" rx="3" fill="#0e7a5f"/>
+  <circle cx="305" cy="138" r="5" fill="#0e7a5f"/>
+
+  <!-- Decorative -->
+  <circle cx="60" cy="60" r="30" fill="#ffffff" opacity="0.15"/>
+  <circle cx="340" cy="200" r="40" fill="#ffffff" opacity="0.15"/>
+</svg>

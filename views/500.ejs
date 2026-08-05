@@ -1,0 +1,26 @@
+<%#
+  ============================================================
+  (c) 2026 PPSZ NW Pasangkayu. All Rights Reserved.
+  Dilarang menyalin, mengubah, atau mendistribusikan tanpa izin.
+  ============================================================
+%><!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>500 — Terjadi Kesalahan</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-card text-center">
+      <h1>500</h1>
+      <p class="sub">Terjadi kesalahan pada server. Silakan coba lagi.</p>
+      <% if (typeof error !== 'undefined' && error) { %>
+        <p class="muted" style="font-size:0.8rem;word-break:break-all"><%= error %></p>
+      <% } %>
+      <a href="/" class="btn btn-primary">Kembali ke Beranda</a>
+    </div>
+  </div>
+</body>
+</html>

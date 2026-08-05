@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" width="400" height="260">
+  <defs>
+    <linearGradient id="fa" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0e7a5f"/>
+      <stop offset="100%" stop-color="#0a5c47"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="260" fill="url(#fa)"/>
+
+  <!-- Shield -->
+  <path d="M200,40 L270,70 L270,140 C270,185 240,205 200,220 C160,205 130,185 130,140 L130,70 Z" fill="#ffffff" opacity="0.95"/>
+  <path d="M200,55 L258,80 L258,140 C258,178 232,195 200,208 C168,195 142,178 142,140 L142,80 Z" fill="#0e7a5f"/>
+
+  <!-- Lock -->
+  <g transform="translate(200,150)">
+    <rect x="-22" y="0" width="44" height="34" rx="6" fill="#f4a826"/>
+    <path d="M-14,0 L-14,-15 A14,14 0 0 1 14,-15 L14,0" fill="none" stroke="#f4a826" stroke-width="6"/>
+    <circle cx="0" cy="15" r="5" fill="#ffffff"/>
+    <rect x="-2" y="12" width="4" height="12" rx="2" fill="#0e7a5f"/>
+  </g>
+
+  <!-- Checkmark -->
+  <path d="M60,140 L80,160 L115,120" fill="none" stroke="#28a745" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Decorative -->
+  <circle cx="60" cy="60" r="30" fill="#ffffff" opacity="0.08"/>
+  <circle cx="340" cy="200" r="40" fill="#ffffff" opacity="0.08"/>
+</svg>
