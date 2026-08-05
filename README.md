@@ -49,12 +49,8 @@ Agar orang tua bisa membuka aplikasi dari HP, pastikan HP dan komputer terhubung
 > - Jika tidak bisa diakses, cek firewall mengizinkan Node.js / port 3000
 > - Untuk akses dari luar rumah (internet), gunakan **ngrok** atau layanan tunnel
 
-### Akun Default Admin
-| Username | Password |
-|----------|----------|
-| `admin`  | `admin123` |
 
-> ⚠️ **Segera ganti password admin default untuk keamanan.**
+>
 
 ## 📂 Struktur Proyek
 
