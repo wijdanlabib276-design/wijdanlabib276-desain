@@ -20,19 +20,9 @@ Website ini mencatat uang masuk/keluar santri dan memungkinkan orang tua/wali me
 - Melihat data santri, total uang masuk/keluar, saldo
 - Melihat riwayat transaksi (50 transaksi terakhir)
 
-## 🚀 Cara Menjalankan
 
-```bash
-# 1. Install dependency
-npm install
 
-# 2. Jalankan server
-npm start
-# atau
-node server.js
-```
 
-Buka di browser: **http://localhost:3000**
 
 ### 📱 Cara Akses dari HP / Smartphone
 
@@ -98,4 +88,4 @@ Agar orang tua bisa membuka aplikasi dari HP, pastikan HP dan komputer terhubung
 Kode ini dilindungi hak cipta. Dilarang menyalin, mengubah, memodifikasi, atau
 mendistribusikan kode ini (sebagian maupun seluruhnya) tanpa izin tertulis dari
 pemilik. Lihat file [LICENSE](LICENSE) untuk detail.
-
+di buat oleh wijdan labib.QH.SKOM
