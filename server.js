@@ -9,7 +9,7 @@ const session = require('express-session');
 const path = require('path');
 const os = require('os');
 
-const { db } = require('./database');
+const { supabase } = require('./database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
