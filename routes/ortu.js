@@ -6,7 +6,7 @@
  */
 const express = require('express');
 const router = express.Router();
-const { db } = require('../database');
+const { supabase } = require('../database');
 
 function requireOrtu(req, res, next) {
   if (req.session && req.session.ortuId) return next();
@@ -20,25 +20,56 @@ router.get('/login', (req, res) => {
 });
 
 // POST /ortu/login
-router.post('/login', (req, res) => {
-  const { kode_akses } = req.body;
-  const santri = db.prepare('SELECT * FROM santri WHERE kode_akses = ?').get(kode_akses);
-  if (!santri) {
-    return res.render('ortu/login', { error: 'Kode akses tidak ditemukan. Silakan periksa kembali.' });
+router.post('/login', async (req, res, next) => {
+  try {
+    const { kode_akses } = req.body;
+    const { data: santri, error } = await supabase
+      .from('santri')
+      .select('*')
+      .eq('kode_akses', (kode_akses || '').trim())
+      .maybeSingle();
+
+    if (error || !santri) {
+      return res.render('ortu/login', { error: 'Kode akses tidak ditemukan. Silakan periksa kembali.' });
+    }
+    req.session.ortuId = santri.id;
+    req.session.ortuNama = santri.nama;
+    res.redirect('/ortu/dashboard');
+  } catch (err) {
+    next(err);
   }
-  req.session.ortuId = santri.id;
-  req.session.ortuNama = santri.nama;
-  res.redirect('/ortu/dashboard');
 });
 
 // GET /ortu/dashboard
-router.get('/dashboard', requireOrtu, (req, res) => {
-  const santri = db.prepare('SELECT * FROM santri WHERE id = ?').get(req.session.ortuId);
-  const transaksi = db.prepare('SELECT * FROM transaksi WHERE santri_id = ? ORDER BY tanggal DESC, id DESC LIMIT 50').all(santri.id);
-  const totalMasuk = db.prepare("SELECT COALESCE(SUM(jumlah),0) AS t FROM transaksi WHERE santri_id=? AND jenis='masuk'").get(santri.id).t;
-  const totalKeluar = db.prepare("SELECT COALESCE(SUM(jumlah),0) AS t FROM transaksi WHERE santri_id=? AND jenis='keluar'").get(santri.id).t;
-  const saldo = totalMasuk - totalKeluar;
-  res.render('ortu/dashboard', { santri, transaksi, totalMasuk, totalKeluar, saldo });
+router.get('/dashboard', requireOrtu, async (req, res, next) => {
+  try {
+    const [santriRes, transaksiRes] = await Promise.all([
+      supabase.from('santri').select('*').eq('id', req.session.ortuId).maybeSingle(),
+      supabase
+        .from('transaksi')
+        .select('*')
+        .eq('santri_id', req.session.ortuId)
+        .order('tanggal', { ascending: false })
+        .order('id', { ascending: false })
+        .limit(50),
+    ]);
+
+    const santri = santriRes.data;
+    if (!santri) return res.redirect('/ortu/login');
+
+    const transaksi = transaksiRes.data || [];
+    let totalMasuk = 0;
+    let totalKeluar = 0;
+    for (const t of transaksi) {
+      if (t.jenis === 'masuk') totalMasuk += Number(t.jumlah || 0);
+      else totalKeluar += Number(t.jumlah || 0);
+    }
+    const saldo = totalMasuk - totalKeluar;
+
+    res.render('ortu/dashboard', { santri, transaksi, totalMasuk, totalKeluar, saldo });
+  } catch (err) {
+    next(err);
+  }
 });
 
 // GET /ortu/logout

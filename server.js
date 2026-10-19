@@ -71,13 +71,17 @@ app.use((err, req, res, next) => {
   res.status(500).render('500', { error: err.message });
 });
 
-app.listen(PORT, HOST, () => {
-  const lanIp = getLanIp();
-  console.log('============================================');
-  console.log('  SISTEM KEUANGAN SANTRI PPSZ NW PASANGKAYU');
-  console.log('============================================');
-  console.log(`  Di komputer ini : http://localhost:${PORT}`);
-  console.log(`  Dari HP (LAN)   : http://${lanIp}:${PORT}`);
-  console.log('  Pastikan HP & komputer terhubung WiFi yang sama.');
-  console.log('============================================');
-});
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, HOST, () => {
+    const lanIp = getLanIp();
+    console.log('============================================');
+    console.log('  SISTEM KEUANGAN SANTRI PPSZ NW PASANGKAYU');
+    console.log('============================================');
+    console.log(`  Di komputer ini : http://localhost:${PORT}`);
+    console.log(`  Dari HP (LAN)   : http://${lanIp}:${PORT}`);
+    console.log('  Pastikan HP & komputer terhubung WiFi yang sama.');
+    console.log('============================================');
+  });
+}
+
+module.exports = app;

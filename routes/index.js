@@ -6,19 +6,31 @@
  */
 const express = require('express');
 const router = express.Router();
-const { db } = require('../database');
+const { supabase } = require('../database');
 
-router.get('/', (req, res) => {
-  const totalSantri = db.prepare('SELECT COUNT(*) AS c FROM santri').get().c;
-  const totalTransaksi = db.prepare('SELECT COUNT(*) AS c FROM transaksi').get().c;
-  const totalMasuk = db.prepare("SELECT COALESCE(SUM(jumlah),0) AS t FROM transaksi WHERE jenis='masuk'").get().t;
-  const totalKeluar = db.prepare("SELECT COALESCE(SUM(jumlah),0) AS t FROM transaksi WHERE jenis='keluar'").get().t;
-  res.render('index', {
-    totalSantri,
-    totalTransaksi,
-    totalMasuk,
-    totalKeluar,
-  });
+router.get('/', async (req, res, next) => {
+  try {
+    const [santriRes, transaksiRes, masukRes, keluarRes] = await Promise.all([
+      supabase.from('santri').select('*', { count: 'exact', head: true }),
+      supabase.from('transaksi').select('*', { count: 'exact', head: true }),
+      supabase.from('transaksi').select('jumlah').eq('jenis', 'masuk'),
+      supabase.from('transaksi').select('jumlah').eq('jenis', 'keluar'),
+    ]);
+
+    const totalSantri = santriRes.count || 0;
+    const totalTransaksi = transaksiRes.count || 0;
+    const totalMasuk = (masukRes.data || []).reduce((acc, curr) => acc + Number(curr.jumlah || 0), 0);
+    const totalKeluar = (keluarRes.data || []).reduce((acc, curr) => acc + Number(curr.jumlah || 0), 0);
+
+    res.render('index', {
+      totalSantri,
+      totalTransaksi,
+      totalMasuk,
+      totalKeluar,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;

@@ -17,5 +17,6 @@
 
 ## Langkah Verifikasi
 - [x] Verifikasi semua file sudah diberi header
-- [ ] Inisialisasi git & hubungkan ke repo GitHub
-- [ ] Push ke GitHub & konfirmasi
+- [x] Inisialisasi git & hubungkan ke repo GitHub
+- [x] Commit & push ke GitHub (branch main)
+- [x] Konfirmasi push berhasil: `21246f5..70c9deb main -> main`
