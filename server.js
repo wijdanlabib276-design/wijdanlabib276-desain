@@ -28,9 +28,10 @@ function getLanIp() {
 }
 
 // Middleware
+app.set('trust proxy', 1);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(process.cwd(), 'public')));
 
 // Session
 app.use(
@@ -38,13 +39,17 @@ app.use(
     secret: 'keuangan-santri-pasangkayu-secret',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 8 }, // 8 jam
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 8, // 8 jam
+      secure: process.env.NODE_ENV === 'production' && !process.env.VERCEL ? true : false,
+      sameSite: 'lax',
+    },
   })
 );
 
 // View engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(process.cwd(), 'views'));
 
 // Helper untuk format rupiah
 app.locals.formatRupiah = (angka) => {
